@@ -17,6 +17,7 @@ FamilyTree.main = function main() {
   // The default code here will make the mainPane for your application visible
   // on screen.  If you app gets any level of complexity, you will probably 
   // create multiple pages and panes.  
+  FamilyTree.statechart.initStatechart();
   FamilyTree.getPath('mainPage.mainPane').append() ;
 
   var fam = FamilyTree.store.find( SC.Query.local(FamilyTree.Family) );

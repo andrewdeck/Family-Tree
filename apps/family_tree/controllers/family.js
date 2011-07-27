@@ -13,5 +13,5 @@
 FamilyTree.familyController = SC.ObjectController.create(
 /** @scope FamilyTree.familyController.prototype */ {
 
-  contentBinding: SC.Binding.single('FamilyTree.familiesController.selection')
+  contentBinding: SC.Binding.single('FamilyTree.familiesController.selection').oneWay()
 }) ;

@@ -13,10 +13,19 @@ FamilyTree.mainPage = SC.Page.design({
   mainPane: SC.MainPane.design({
     layout: { minHeight: 400 , minWidth: 1000},
     childViews: 'personView membersView familyView'.w(),
+    defaultResponder: 'FamilyTree.statechart',
     
     familyView: SC.View.design({
       layout: { top: 0, left: 0, width: 400, bottom: 0 },
-      childViews: 'familyListView familyLabelView'.w(),
+      childViews: 'familyListView familyLabelView addDelButtonView'.w(),
+      
+      addDelButtonView: FamilyTree.AddRemoveButtonView.design({
+        layout: { bottom: 15, right: 30, height: 24, width: 82 },
+        items: [
+          { title: '+', value: 0, action: 'addFamily', width: 31 },
+          { title: '-', value: 1, action: 'deleteFamily', width: 31 }
+        ]
+      }),
       
       familyListView: SC.ScrollView.design({
         layout: { top: 36, left: 0, right: 0, bottom: 0 },
@@ -24,7 +33,7 @@ FamilyTree.mainPage = SC.Page.design({
         
         contentView: SC.ListView.design({
           layout: { top: 0, left: 0, right: 0, bottom: 0 },
-          backgroundColor: 'rgba(0,0,255,0.5)',
+          backgroundColor: '#00733C',
           contentBinding: 'FamilyTree.familiesController.arrangedObjects',
           selectionBinding: 'FamilyTree.familiesController.selection',
           contentValueKey: 'name',
@@ -48,7 +57,7 @@ FamilyTree.mainPage = SC.Page.design({
     
     membersView: SC.View.design({
       layout: { top: 0, right: 0, left: 400, height: 0.5 },
-      childViews: 'memberListView memberLabelView'.w(),
+      childViews: 'memberListView memberLabelView addDelButtonView'.w(),
       
       memberLabelView: SC.ToolbarView.design({
         layout: { top: 0, right: 0, left: 0, height: 36 },
@@ -62,14 +71,21 @@ FamilyTree.mainPage = SC.Page.design({
         })
       }),
       
+      addDelButtonView: FamilyTree.AddRemoveButtonView.design({
+        items: [
+          { title: '+', value: 0, action: 'addMember', width: 31 },
+          { title: '-', value: 1, action: 'deleteMember', width: 31 }
+        ]
+      }),
+      
       memberListView: SC.ScrollView.design({
         layout: { top: 36, left: 0, right: 0, bottom: 0 },
-        backgroundColor: 'rgba(0,255,0,0.5)',
+        backgroundColor: '#61D89F',
         childViews: 'contentView'.w(),
         
         contentView: SC.ListView.design({
           layout: { top: 0, left: 0, right: 0, bottom: 0 },
-          backgroundColor: 'rgba(0,255,0,0)',
+          backgroundColor: '#61D89F',
           isVisibleBinding: SC.Binding.single('FamilyTree.familiesController.selection').oneWay().bool(),
 
           contentBinding: 'FamilyTree.familyController.members',
@@ -86,15 +102,20 @@ FamilyTree.mainPage = SC.Page.design({
       
       infoView: SC.View.design({
         layout: { left: 0, top: 0, bottom: 0, right: 400 },
-        backgroundColor: 'rgba(255,0,255,0.5)',
+        backgroundColor: '#36D88A',
         childViews: 'nameAreaView'.w(),
         
         nameAreaView: SC.View.design({
           layout: {top: 0, left: 0, right: 0, bottom: 0},
-          childViews: 'nameView'.w(),
+          childViews: 'nameView nameLabel'.w(),
+          
+          nameLabel: SC.LabelView.design({
+            value: 'Full name',
+            layout: { centerX: -70, centerY: 0, height: 22, width: 60 }
+          }),
           
           nameView: SC.TextFieldView.design({
-            layout: { centerX: 0, centerY: 0, height: 24, width: 200 },
+            layout: { centerX: 70, centerY: 0, height: 24, width: 200 },
             contentBinding: 'FamilyTree.memberController',
             contentValueKey: 'fullName'
           
@@ -122,12 +143,12 @@ FamilyTree.mainPage = SC.Page.design({
         relativesListView: SC.ScrollView.design({
           layout: { top: 36, left: 0, right: 0, bottom: 0 },
           childViews: 'contentView'.w(),
-          backgroundColor: 'rgba(255,0,0,0.5)',
+          backgroundColor: '#00B25C',
           
           
           contentView: SC.ListView.design({
             isVisibleBinding: SC.Binding.single('FamilyTree.membersController.selection').oneWay().bool(),
-            backgroundColor: 'rgba(255,0,0,0)',
+            backgroundColor: '#00B25C',
             contentBinding: 'FamilyTree.memberController.relatives',
             contentValueKey: 'fullName',
             selectionBinding: 'FamilyTree.membersController.selection'

@@ -25,4 +25,4 @@ FamilyTree.Family = SC.Record.extend(
     isMaster: YES
   })
   
-}) ;
+});

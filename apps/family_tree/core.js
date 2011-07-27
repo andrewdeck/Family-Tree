@@ -2,7 +2,7 @@
 // Project:   FamilyTree
 // Copyright: ©2011 My Company, Inc.
 // ==========================================================================
-/*globals FamilyTree */
+/*globals FamilyTree Ki*/
 
 /** @namespace
 
@@ -10,7 +10,7 @@
   
   @extends SC.Object
 */
-FamilyTree = SC.Application.create(
+FamilyTree = SC.Application.create(Ki.Statechart,
   /** @scope FamilyTree.prototype */ {
 
   NAMESPACE: 'FamilyTree',
